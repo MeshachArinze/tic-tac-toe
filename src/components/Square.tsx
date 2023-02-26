@@ -1,9 +1,14 @@
-import React from 'react'
+import { value } from "../tictactoe";
 
-const Square: () => JSX.Element = (props) => {
-  return <button className={props.value ? 'btn disabled': 'btn'} onClick={props.onClick}>
-    {props.value}
-  </button>
+const Square = (props: value) => {
+  return (
+    <button
+      className={props.value ? "btn disabled" : "btn"}
+      onClick={props.onClick}
+    >
+      {props.value}
+    </button>
+  );
 };
 
-export default Square
+export default Square;
