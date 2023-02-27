@@ -1,27 +1,7 @@
-import React, { Key, useReducer } from "react";
+import { Key, useReducer } from "react";
 import Board from "./Board";
-
-const reducer = (state: any, action: any) => {
-  switch (action.type) {
-    case "JUMP":
-      return {
-        ...state,
-        xIsNext: action.payload.step % 2 === 0,
-        history: state.history.slice(0, action.payload.step + 1),
-      };
-
-    case "MOVE":
-      return {
-        ...state,
-        history: state.history.concat({
-          squares: action.payload.squares,
-        }),
-        xIsNext: !state.xIsNext,
-      };
-    default:
-      return state;
-  }
-};
+import { JUMP, MOVE } from "./actions/action";
+import reducer from "../components/reducers/reducer"
 
 const calculateWinner = (squares: any[]) => {
   const winnerLines: number[][] = [
@@ -58,7 +38,7 @@ export default function Game():JSX.Element {
   const { xIsNext, history } = state;
 
   const jumpTo = (step: any) => {
-    dispatch({ type: "JUMP", payload: { step } });
+    dispatch({ type: JUMP, payload: { step } });
   };
 
   const handleClick = (i: string | number) => {
@@ -69,7 +49,7 @@ export default function Game():JSX.Element {
     if (winner || squares[i]) return;
 
     squares[i] = xIsNext ? "X" : "O";
-    dispatch({ type: "MOVE", payload: { squares } });
+    dispatch({ type: MOVE, payload: { squares } });
   };
 
   const current: any = history[history.length - 1];
